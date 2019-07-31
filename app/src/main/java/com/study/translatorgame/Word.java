@@ -19,6 +19,10 @@ public class Word {
         return translation;
     }
 
+    public String getRandomTranslation() {
+        return translation.get((int) (Math.random() * translation.size()));
+    }
+
     public boolean isHasTranslation(String s) {
         if (translation == null) return false;
         else return (translation.contains(s));
