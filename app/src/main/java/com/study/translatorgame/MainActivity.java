@@ -1,7 +1,9 @@
 package com.study.translatorgame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 textViewTimer.setText(getTime(0));
                 gameOver = true;
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                int max = preferences.getInt("max", 0);
+                if (countOfRightAnswer >= max) preferences.edit().putInt("max", countOfRightAnswer).apply();
+
                 Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
                 intent.putExtra("result", countOfRightAnswer);
                 startActivity(intent);
