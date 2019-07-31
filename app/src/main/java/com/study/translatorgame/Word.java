@@ -23,4 +23,12 @@ public class Word {
         if (translation == null) return false;
         else return (translation.contains(s));
     }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "name='" + name + '\'' +
+                ", translation=" + translation +
+                '}';
+    }
 }
