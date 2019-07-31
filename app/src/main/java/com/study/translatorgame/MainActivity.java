@@ -3,6 +3,7 @@ package com.study.translatorgame;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 textViewTimer.setText(getTime(millisUntilFinished));
+                if (millisUntilFinished < 10000) textViewTimer.setTextColor(getResources().getColor(android.R.color.holo_red_light));
             }
 
             @Override
@@ -98,15 +100,26 @@ public class MainActivity extends AppCompatActivity {
         if (!gameOver) {
             if (rightAnswerPosition == opinions.indexOf((TextView) view)) {
                 countOfRightAnswer++;
-                Toast.makeText(this, "Верно!", Toast.LENGTH_SHORT).show();
-//            playGame();
-            } else Toast.makeText(this, "Неверно!", Toast.LENGTH_SHORT).show();
+                textViewQuestion.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+//                Toast.makeText(this, "Верно!", Toast.LENGTH_SHORT).show();
+            } else {
+                textViewQuestion.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+//                Toast.makeText(this, "Неверно!", Toast.LENGTH_SHORT).show();
+            }
             countOfQuestion++;
-            playGame();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    textViewQuestion.setTextColor(getResources().getColor(android.R.color.white));
+                    playGame();
+                }
+            }, 1000);
+
         }
     }
 
     private void playGame() {
+
         String textTranslation;
         int randomIndex;
 
