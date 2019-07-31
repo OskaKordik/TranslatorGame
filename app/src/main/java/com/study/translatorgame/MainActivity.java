@@ -1,5 +1,6 @@
 package com.study.translatorgame;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
-        CountDownTimer timer = new CountDownTimer(10000, 1000) {
+        CountDownTimer timer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 textViewTimer.setText(getTime(millisUntilFinished));
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 textViewTimer.setText(getTime(0));
                 gameOver = true;
+                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+                intent.putExtra("result", countOfRightAnswer);
+                startActivity(intent);
             }
         };
         timer.start();
