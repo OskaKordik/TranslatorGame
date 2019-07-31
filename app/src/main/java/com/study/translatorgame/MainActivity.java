@@ -1,13 +1,16 @@
 package com.study.translatorgame;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textViewQuestion;
@@ -19,12 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewOpinion3;
     private ArrayList<TextView> opinions;
 
-    ArrayList<Word> words;
+    private ArrayList<Word> words;
 
     private String question;
     private String rightAnswer;
     private int rightAnswerPosition;
     private int indexQuestion;
+
+    private int countOfRightAnswer;
+    private int countOfQuestion;
+    private boolean gameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +46,25 @@ public class MainActivity extends AppCompatActivity {
         textViewOpinion2 = findViewById(R.id.textViewOpinion2);
         textViewOpinion3 = findViewById(R.id.textViewOpinion3);
         opinions = new ArrayList<>(Arrays.asList(textViewOpinion0, textViewOpinion1, textViewOpinion2, textViewOpinion3));
-
         words = createWords();
-//        for (Word w : words) {
-//            Log.i("MyInfo", w.toString());
-//        }
+        startTimer();
         playGame();
+    }
+
+    private void startTimer() {
+        CountDownTimer timer = new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textViewTimer.setText(getTime(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                textViewTimer.setText(getTime(0));
+                gameOver = true;
+            }
+        };
+        timer.start();
     }
 
     public ArrayList<Word> createWords() {
@@ -64,7 +84,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onClickPlay(View view) {
-        playGame();
+        if (!gameOver) {
+            if (rightAnswerPosition == opinions.indexOf((TextView) view)) {
+                countOfRightAnswer++;
+                Toast.makeText(this, "Верно!", Toast.LENGTH_SHORT).show();
+//            playGame();
+            } else Toast.makeText(this, "Неверно!", Toast.LENGTH_SHORT).show();
+            countOfQuestion++;
+            playGame();
+        }
     }
 
     private void playGame() {
@@ -87,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 opinions.get(i).setText(textTranslation);
             }
         }
+
+        textViewScore.setText(countOfRightAnswer + " / " + countOfQuestion);
     }
 
     private String generateQuestion() {
@@ -94,4 +124,10 @@ public class MainActivity extends AppCompatActivity {
         return question = words.get(indexQuestion).getName();
     }
 
+    private String getTime(long millis) {
+        int seconds = (int) (millis / 1000);
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+    }
 }
