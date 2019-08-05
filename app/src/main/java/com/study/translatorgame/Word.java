@@ -15,8 +15,13 @@ public class Word {
         return name;
     }
 
-    public ArrayList<String> getTranslation() {
-        return translation;
+    public String getTranslation() {
+        StringBuilder translateString = new StringBuilder();
+        for (int i =0; i < translation.size(); i++) {
+            translateString.append(translation.get(i));
+            if (i < (translation.size() - 1)) translateString.append(",\n");
+        }
+        return translateString.toString();
     }
 
     public String getRandomTranslation() {

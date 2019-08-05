@@ -7,16 +7,14 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     private TextView textViewQuestion;
     private TextView textViewTimer;
     private TextView textViewScore;
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 int max = preferences.getInt("max", 0);
                 if (countOfRightAnswer >= max) preferences.edit().putInt("max", countOfRightAnswer).apply();
 
-                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+                Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
                 intent.putExtra("result", countOfRightAnswer);
                 startActivity(intent);
             }

@@ -25,6 +25,6 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     public void startNewGame(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, GameActivity.class));
     }
 }
