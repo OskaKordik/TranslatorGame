@@ -1,9 +1,11 @@
 package com.study.translatorgame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,5 +38,9 @@ public class WordsActivity extends AppCompatActivity {
         words.add(new Word("Compatibility", new ArrayList<String>(Arrays.asList("совместимость"))));
         words.add(new Word("Convenience", new ArrayList<String>(Arrays.asList("удобство", "комфорт", "выгода"))));
         return words;
+    }
+
+    public void onClickAddWord(View view) {
+        startActivity(new Intent(this, AddWordActivity.class));
     }
 }
