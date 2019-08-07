@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,8 +28,6 @@ public class GameActivity extends AppCompatActivity {
 
     private ArrayList<Word> words;
 
-    private String question;
-    private String rightAnswer;
     private int rightAnswerPosition;
     private int indexQuestion;
 
@@ -38,7 +38,10 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null) actionBar.hide();
 
         textViewQuestion = findViewById(R.id.textViewQuestion);
         textViewTimer = findViewById(R.id.textViewTimer);
@@ -48,9 +51,11 @@ public class GameActivity extends AppCompatActivity {
         textViewOpinion2 = findViewById(R.id.textViewOpinion2);
         textViewOpinion3 = findViewById(R.id.textViewOpinion3);
         opinions = new ArrayList<>(Arrays.asList(textViewOpinion0, textViewOpinion1, textViewOpinion2, textViewOpinion3));
-        words = createWords();
-        startTimer();
-        playGame();
+        words = WordsActivity.words;
+        if (!words.isEmpty()) {
+            startTimer();
+            playGame();
+        } else Toast.makeText(this, "Словарь пуст!", Toast.LENGTH_SHORT);
     }
 
     private void startTimer() {
@@ -77,22 +82,6 @@ public class GameActivity extends AppCompatActivity {
         };
         timer.start();
     }
-
-    public ArrayList<Word> createWords() {
-        ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("Game", new ArrayList<String>(Arrays.asList("игра"))));
-        words.add(new Word("Action", new ArrayList<String>(Arrays.asList("действие", "поступок"))));
-        words.add(new Word("Temp", new ArrayList<String>(Arrays.asList("температура", "работать временно"))));
-        words.add(new Word("Study", new ArrayList<String>(Arrays.asList("изучение", "исследование"))));
-        words.add(new Word("Brain", new ArrayList<String>(Arrays.asList("мозг"))));
-        words.add(new Word("Constrain", new ArrayList<String>(Arrays.asList("сдерживать", "ограничивать"))));
-        words.add(new Word("Support", new ArrayList<String>(Arrays.asList("поддержка"))));
-        words.add(new Word("Provide", new ArrayList<String>(Arrays.asList("предоставлять"))));
-        words.add(new Word("Compatibility", new ArrayList<String>(Arrays.asList("совместимость"))));
-        words.add(new Word("Convenience", new ArrayList<String>(Arrays.asList("удобство", "комфорт", "выгода"))));
-        return words;
-    }
-
 
     public void onClickPlay(View view) {
         if (!gameOver) {
@@ -143,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String generateQuestion() {
         indexQuestion = (int) (Math.random() * words.size());
-        return question = words.get(indexQuestion).getName();
+        return words.get(indexQuestion).getName();
     }
 
     private String getTime(long millis) {
