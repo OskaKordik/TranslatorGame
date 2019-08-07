@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AddWordActivity"></activity>
+        <activity
+            android:name=".AddWordActivity"
+            android:label="@string/activity_addword_label" />
         <activity android:name=".WordsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScoreActivity" />
-        <activity android:name=".GameActivity"></activity>
+        <activity android:name=".GameActivity" />
     </application>
 
 </manifest>

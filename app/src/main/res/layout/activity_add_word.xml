@@ -7,6 +7,10 @@
     android:background="#D7000000"
     tools:context=".AddWordActivity">
 
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar" />
+
     <EditText
         android:id="@+id/editTextWord"
         android:layout_width="0dp"
@@ -22,7 +26,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonSearchTranslate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/editTextTranslate"
@@ -67,14 +71,14 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="#0091EA"
+        android:onClick="onClickSearchTranslate"
         android:paddingStart="8dp"
         android:paddingLeft="8dp"
         android:paddingEnd="8dp"
-        android:onClick="onClickSearchTranslate"
         android:paddingRight="8dp"
         android:text="@string/search_translate"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 </android.support.constraint.ConstraintLayout>

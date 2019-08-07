@@ -40,9 +40,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar !=null) actionBar.hide();
-
         textViewQuestion = findViewById(R.id.textViewQuestion);
         textViewTimer = findViewById(R.id.textViewTimer);
         textViewScore = findViewById(R.id.textViewScore);

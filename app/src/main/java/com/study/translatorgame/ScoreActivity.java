@@ -27,4 +27,8 @@ public class ScoreActivity extends AppCompatActivity {
     public void startNewGame(View view) {
         startActivity(new Intent(this, GameActivity.class));
     }
+
+    public void goToWords(View view) {
+        startActivity(new Intent(this, WordsActivity.class));
+    }
 }
