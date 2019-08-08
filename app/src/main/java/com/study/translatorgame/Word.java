@@ -28,11 +28,6 @@ public class Word {
         return translation.get((int) (Math.random() * translation.size()));
     }
 
-    public boolean isHasTranslation(String s) {
-        if (translation == null) return false;
-        else return (translation.contains(s));
-    }
-
     @Override
     public String toString() {
         return "Word{" +

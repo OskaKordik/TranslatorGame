@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
         textViewOpinion2 = findViewById(R.id.textViewOpinion2);
         textViewOpinion3 = findViewById(R.id.textViewOpinion3);
         opinions = new ArrayList<>(Arrays.asList(textViewOpinion0, textViewOpinion1, textViewOpinion2, textViewOpinion3));
-        words = WordsActivity.words;
+        words = WordsActivity.wordsFromDB;
         if (!words.isEmpty()) {
             startTimer();
             playGame();

@@ -36,8 +36,8 @@ public class DBWordsHelper extends SQLiteOpenHelper {
             db.execSQL(DBWordsContract.WordsEntry.COMMAND_CREATE);
 
             //заполнение DB
-            insertWord(db, "game", "игра");
-            insertWord(db, "study", "изучение, исследование");
+//            insertWord(db, "game", "игра");
+//            insertWord(db, "study", "изучение, исследование");
         }
         if (newVersion > 1) {
             //код добавления нового столбца
