@@ -18,7 +18,7 @@ public class Word {
     public String getTranslation() {
         StringBuilder translateString = new StringBuilder();
         for (int i =0; i < translation.size(); i++) {
-            translateString.append(translation.get(i));
+            translateString.append(translation.get(i).trim());
             if (i < (translation.size() - 1)) translateString.append(",\n");
         }
         return translateString.toString();

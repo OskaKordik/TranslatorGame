@@ -22,11 +22,11 @@ public class AddWordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_word);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setContentView(R.layout.activity_add_word);
         editTextWord = findViewById(R.id.editTextWord);
         editTextTranslate = findViewById(R.id.editTextTranslate);
     }

@@ -6,7 +6,7 @@
     <string name="search_translate">Найти перевод</string>
     <string name="hint_translate">Введите варианты перевода через запятую</string>
     <string name="hint_word">Введите слово</string>
-    <string name="activity_addword_label">Adding a word</string>
+    <string name="add_word_label">Adding a word</string>
     <string name="start_game">Начать игру</string>
     <string name="go_to_words">Перейти в словарь</string>
 </resources>

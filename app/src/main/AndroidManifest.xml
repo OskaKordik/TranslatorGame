@@ -11,9 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".AddWordActivity"
-            android:label="@string/activity_addword_label" />
+        <activity android:name=".AddWordActivity"
+            android:label="@string/add_word_label"/>
         <activity android:name=".WordsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
