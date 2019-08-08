@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 public class WordsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewWords;
-    public static final ArrayList<Word> words = new ArrayList<>();
     public static final ArrayList<Word> wordsFromDB = new ArrayList<>();
     private SQLiteDatabase database;
     private SQLiteOpenHelper dbHelper;
@@ -44,7 +43,6 @@ public class WordsActivity extends AppCompatActivity {
             Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
         }
 
-
         WordsAdapter adapter = new WordsAdapter(wordsFromDB);
         recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewWords.setAdapter(adapter);
@@ -59,28 +57,16 @@ public class WordsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_start_game) {
-            startActivity(new Intent(this, GameActivity.class));
+            if (wordsFromDB.size() > 4) {
+                startActivity(new Intent(this, GameActivity.class));
+            } else Toast.makeText(this, "Добавьте более 4 слов!", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void createWords() {
-//        if (words.isEmpty()) {
-//            words.add(new Word("Game", new ArrayList<String>(Arrays.asList("игра"))));
-//            words.add(new Word("Action", new ArrayList<String>(Arrays.asList("действие", "поступок"))));
-//            words.add(new Word("Temp", new ArrayList<String>(Arrays.asList("температура", "работать временно"))));
-//            words.add(new Word("Study", new ArrayList<String>(Arrays.asList("изучение", "исследование"))));
-//            words.add(new Word("Brain", new ArrayList<String>(Arrays.asList("мозг"))));
-//            words.add(new Word("Constrain", new ArrayList<String>(Arrays.asList("сдерживать", "ограничивать"))));
-//            words.add(new Word("Support", new ArrayList<String>(Arrays.asList("поддержка"))));
-//            words.add(new Word("Provide", new ArrayList<String>(Arrays.asList("предоставлять"))));
-//            words.add(new Word("Compatibility", new ArrayList<String>(Arrays.asList("совместимость"))));
-//            words.add(new Word("Convenience", new ArrayList<String>(Arrays.asList("удобство", "комфорт", "выгода"))));
-//        }
-//        for (Word word: words) {
-//            database.insert(DBWordsContract.WordsEntry.TABLE_NAME, null, getWordValues(word.getName(), word.getTranslation()));
-//        }
+        if (!wordsFromDB.isEmpty()) wordsFromDB.clear();
 
         cursor = database.query(DBWordsContract.WordsEntry.TABLE_NAME, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
