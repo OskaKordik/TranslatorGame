@@ -85,7 +85,8 @@ public class WordsActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.WordsEntry.COLUMN_WORD));
             String translation = cursor.getString(cursor.getColumnIndex(DBWordsContract.WordsEntry.COLUMN_TRANSLATION));
-            wordsFromDB.add(new Word(word, new ArrayList<String>(Arrays.asList(translation.split(", ")))));
+
+            wordsFromDB.add(new Word(word, new ArrayList<>(Arrays.asList(translation.split("\\s*,\\s*")))));
         }
         cursor.close();
     }
