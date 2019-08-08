@@ -1,6 +1,5 @@
 package com.study.translatorgame;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +22,8 @@ public class WordsActivity extends AppCompatActivity {
     public static final ArrayList<Word> words = new ArrayList<>();
     public static final ArrayList<Word> wordsFromDB = new ArrayList<>();
     private SQLiteDatabase database;
+    private SQLiteOpenHelper dbHelper;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class WordsActivity extends AppCompatActivity {
 
         recyclerViewWords = findViewById(R.id.recyclerViewWords);
 
-        SQLiteOpenHelper dbHelper = new DBWordsHelper(this);
+        dbHelper = new DBWordsHelper(this);
 
         try {
             database = dbHelper.getWritableDatabase();
@@ -81,24 +82,23 @@ public class WordsActivity extends AppCompatActivity {
 //            database.insert(DBWordsContract.WordsEntry.TABLE_NAME, null, getWordValues(word.getName(), word.getTranslation()));
 //        }
 
-        Cursor cursor = database.query(DBWordsContract.WordsEntry.TABLE_NAME, null, null, null, null, null, null);
+        cursor = database.query(DBWordsContract.WordsEntry.TABLE_NAME, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.WordsEntry.COLUMN_WORD));
             String translation = cursor.getString(cursor.getColumnIndex(DBWordsContract.WordsEntry.COLUMN_TRANSLATION));
 
             wordsFromDB.add(new Word(word, new ArrayList<>(Arrays.asList(translation.split("\\s*,\\s*")))));
         }
-        cursor.close();
-    }
-
-    private ContentValues getWordValues(String word, String translation) {
-        ContentValues wordValues = new ContentValues();
-        wordValues.put(DBWordsContract.WordsEntry.COLUMN_WORD, word);
-        wordValues.put(DBWordsContract.WordsEntry.COLUMN_TRANSLATION, translation);
-        return wordValues;
-    }
+      }
 
     public void onClickAddWord(View view) {
         startActivity(new Intent(this, AddWordActivity.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cursor.close();
+        database.close();
     }
 }

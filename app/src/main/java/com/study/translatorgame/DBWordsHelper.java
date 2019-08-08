@@ -24,7 +24,7 @@ public class DBWordsHelper extends SQLiteOpenHelper {
         updateDatabase(db, oldVersion, newVersion);
     }
 
-    private static void insertWord(SQLiteDatabase db, String word, String translation) {
+    public static void insertWord(SQLiteDatabase db, String word, String translation) {
         ContentValues wordValues = new ContentValues();
         wordValues.put(DBWordsContract.WordsEntry.COLUMN_WORD, word);
         wordValues.put(DBWordsContract.WordsEntry.COLUMN_TRANSLATION, translation);
