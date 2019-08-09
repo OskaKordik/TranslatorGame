@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +59,23 @@ public class WordsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Долго жмешь!", Toast.LENGTH_SHORT).show();
             }
         });
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                if (i == 4) {
+                    //код для свайпа влево
+                }
+                if (i == 8) {
+                    //код для свайпа вправо
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerViewWords);
     }
 
     @Override
