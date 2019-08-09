@@ -3,16 +3,22 @@ package com.study.translatorgame;
 import java.util.ArrayList;
 
 public class Word {
+    private int id;
     private String name;
     private ArrayList<String> translation;
 
-    public Word(String name, ArrayList<String> translation) {
+    public Word(int id, String name, ArrayList<String> translation) {
+        this.id = id;
         this.name = name;
         this.translation = translation;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTranslation() {
