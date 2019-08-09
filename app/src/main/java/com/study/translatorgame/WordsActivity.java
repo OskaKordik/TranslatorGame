@@ -46,6 +46,17 @@ public class WordsActivity extends AppCompatActivity {
         WordsAdapter adapter = new WordsAdapter(wordsFromDB);
         recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewWords.setAdapter(adapter);
+        adapter.setClickListener(new WordsAdapter.OnWordClickListener() {
+            @Override
+            public void onWordClick(int position) {
+                Toast.makeText(getApplicationContext(), "Позиция " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(int position) {
+                Toast.makeText(getApplicationContext(), "Долго жмешь!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

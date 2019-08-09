@@ -11,9 +11,19 @@ import java.util.ArrayList;
 
 public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.WordsViewHolder> {
     private ArrayList<Word> words;
+    private OnWordClickListener clickListener;
 
     public WordsAdapter(ArrayList<Word> words) {
         this.words = words;
+    }
+
+    public void setClickListener(OnWordClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    interface OnWordClickListener {
+        void onWordClick(int position);
+        void onLongClick(int position);
     }
 
     @NonNull
@@ -43,6 +53,19 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.WordsViewHol
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) clickListener.onWordClick(getAdapterPosition());
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (clickListener != null) clickListener.onLongClick(getAdapterPosition());
+                    return true;
+                }
+            });
         }
     }
 }
