@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AddWordActivity extends AppCompatActivity {
     private EditText editTextWord;
     private EditText editTextTranslate;
@@ -44,7 +46,15 @@ public class AddWordActivity extends AppCompatActivity {
     public void onClickSaveWord(View view) {
         word = editTextWord.getText().toString().trim();
         translate = editTextTranslate.getText().toString();
-        if (!word.isEmpty() && !translate.isEmpty()) {
+        ArrayList<Word> wordsList = WordsActivity.words;
+        boolean isExists = false;
+        for (Word w: wordsList) {
+            if (w.getName().equals(word)) isExists = true;
+        }
+        if (isExists) {
+            //проверка на существование слова в словаре
+            Toast.makeText(getApplication(), "Слово уже существует!", Toast.LENGTH_SHORT).show();
+        } else if (!word.isEmpty() && !translate.isEmpty()) {
             //добавление слова в базу
             database.insert(DBWordsContract.WordsEntry.TABLE_NAME, null, getWordValues(word, translate));
             startActivity(new Intent(this, WordsActivity.class));
